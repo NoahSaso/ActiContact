@@ -2,7 +2,7 @@ Package: ws.hbang.acticontact
 Name: ActiContact
 Pre-Depends: firmware (>= 5.0)
 Depends: mobilesubstrate
-Version: 1.0
+Version: 1.1
 Architecture: iphoneos-arm
 Description: Add new contacts with an Activator gesture
 Maintainer: HASHBANG Productions <acticontact@hbang.ws>

@@ -1,7 +1,6 @@
 #import "HBACViewController.h"
 
 UIWindow *addWindow;
-UIWindow *previousKeyWindow;
 HBACViewController *sharedInstance;
 
 @interface HBACViewController ()
@@ -19,7 +18,6 @@ HBACViewController *sharedInstance;
 	addWindow = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
 	addWindow.windowLevel = UIWindowLevelStatusBar + 1.f;
 
-	previousKeyWindow = [UIWindow.keyWindow retain];
 	[addWindow addSubview:sharedInstance.view];
 	[addWindow makeKeyAndVisible];
 }
@@ -31,7 +29,6 @@ HBACViewController *sharedInstance;
 	newPersonViewController.newPersonViewDelegate = self;
 
 	navigationController = [[UINavigationController alloc] initWithRootViewController:newPersonViewController];
-	navigationController.modalPresentationStyle = UIModalPresentationFormSheet;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -58,10 +55,7 @@ HBACViewController *sharedInstance;
 }
 
 - (void)_dismissCompleted {
-	[previousKeyWindow makeKeyWindow];
-	[previousKeyWindow release];
-	previousKeyWindow = nil;
-
+	[addWindow resignKeyWindow];
 	[addWindow release];
 	addWindow = nil;
 
@@ -69,7 +63,7 @@ HBACViewController *sharedInstance;
 	sharedInstance = nil;
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(BOOL)interfaceOrientation {
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
 	return [UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad ? YES : interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown;
 }
 
